@@ -6,10 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Bellybutton Biodiversity</title>
-  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
+
 
 <body>
 
@@ -34,7 +37,54 @@
         </div>
       </div>
       <div class="col-md-5">
-        <div id="bar"></div>
+        <div id="bar"> <!-- This is where the Plotly chart will be rendered -->
+          <script>
+            // Function to fetch data for the selected subject ID
+            function fetchDataForSelectedSubject(selectedSubjectID) {
+                // Assuming you have the data available in a variable called `data`
+                return data.find(subject => subject.id === selectedSubjectID);
+            }
+
+            // Function to extract the top 10 OTUs from the data
+            function getTop10OTUs(dataForSelectedSubject) {
+                // Assuming the data is in the format of an array of objects with `otuID`, `otuLabel`, and `sampleValue` properties
+                return dataForSelectedSubject.otus.sort((a, b) => b.sampleValue - a.sampleValue).slice(0, 10);
+            }
+
+            // Function to update the bar chart based on the selected subject ID
+            function updateBarChart(selectedSubjectID) {
+                // Fetch data for the selected subject ID
+                const dataForSelectedSubject = fetchDataForSelectedSubject(selectedSubjectID);
+
+                // Process the data and extract necessary information for the bar chart
+                const top10OTUs = getTop10OTUs(dataForSelectedSubject);
+
+                // Create data for the Plotly bar chart
+                const barData = [{
+                    type: 'bar',
+                    x: top10OTUs.map(otu => otu.sampleValue),
+                    y: top10OTUs.map(otu => `OTU ${otu.otuID}`),
+                    text: top10OTUs.map(otu => otu.otuLabel),
+                    orientation: 'h'
+                }];
+
+                // Create layout for the Plotly bar chart
+                const barLayout = {
+                    title: 'Top 10 OTUs Found',
+                    yaxis: {
+                        autorange: 'reversed'
+                    }
+                };
+
+                // Plot the bar chart using Plotly and render it inside the <div id="bar"> element
+                Plotly.newPlot('bar', barData, barLayout);
+            }
+          </script>
+
+        </div>
+      </div>      
+      <div class="col-md-5">
+        <div id="bubble"></div>
       </div>
       <div class="col-md-5">
         <div id="gauge"></div>
@@ -48,8 +98,6 @@
   </div>
 
   <script src="./static/js/app.js"></script>
-  <script src="./static/js/bonus.js"></script>
-
 </body>
 
 </html>
