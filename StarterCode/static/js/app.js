@@ -1,7 +1,7 @@
 // Function to fetch data from samples.json
-async function fetchData(url) {
+async function fetchData('https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json') {
     try {
-        const response = await fetch(url);
+        const response = await fetch('https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json');
         const data = await response.json();
         return data;
     } catch (error) {
