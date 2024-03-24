@@ -103,3 +103,16 @@ function createDropdown(samples) {
         dropdown.append('option').attr('value', sample.id).text(sample.id);
     });
 }
+// initialize the dashboard
+async function init() {
+    const data = await fetchData();
+    if (!data) {
+        return;
+    }
+
+    createDropdown(data.names);
+    createBarChart(data.samples[0]);
+    createBubbleChart(data.samples[0]);
+    createGaugeChart(data.metadata[0]);
+    updateDemographicInfo(data.metadata[0]);
+}
