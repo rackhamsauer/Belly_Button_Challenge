@@ -1,1 +1,3 @@
 # Belly_Button_Challenge
+
+This assignment was looking at the bacteria present in individual's belly buttons.I started by creating my repository and git hub pages site. I then used the starter code for html and created an app.js file to include the areas for the graphs and ensure that the data was pulled correctly from the url given for the json file. This was a really neat assignment in getting to deploy a site so easily. When you use the drop down to select an individual it will update each chart and the information on the bacteria found. I used peer assistance and tutor assistance as well as chat gpt and stack overflow to complete this assignement. 
