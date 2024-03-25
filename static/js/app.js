@@ -1,7 +1,7 @@
-// Function to fetch data from samples.json
-async function fetchData('https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json') {
+// Function to fetch data from a specified URL
+async function fetchData(url) {
     try {
-        const response = await fetch('https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json');
+        const response = await fetch(url);
         const data = await response.json();
         return data;
     } catch (error) {
@@ -9,15 +9,10 @@ async function fetchData('https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/
         return null;
     }
 }
-// define the function
-function fetchData() {
-    // Fetch the JSON data and console log it
-    d3.json("samples.json").then(function(data){
-        console.log(data);
-    });
-}
-// Call the function
-fetchData();
+
+// Call the function with the URL
+fetchData('https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json');
+
 
 // Function to create horizontal bar chart
 function createBarChart(sample) {
