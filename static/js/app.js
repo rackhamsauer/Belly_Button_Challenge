@@ -9,6 +9,15 @@ async function fetchData('https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/
         return null;
     }
 }
+// define the function
+function fetchData() {
+    // Fetch the JSON data and console log it
+    d3.json("samples.json").then(function(data){
+        console.log(data);
+    });
+}
+// Call the function
+fetchData();
 
 // Function to create horizontal bar chart
 function createBarChart(sample) {
